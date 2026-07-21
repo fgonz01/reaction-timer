@@ -7,7 +7,7 @@ An interrupt-driven GPIO reaction time measurement system built on Raspberry Pi 
 ## Medtech Relevance ##
 Stimulus-response latency is a real, validated clinical measurement. Similar uses for reaction-time testing can be seen:
 - **In concussion diagnostics** - protocols like Immediate Post-Concussion Assessment and Cognitive Testing (ImPACT) use reaction time in different methods as markers of neurological impairment after a head injury.
-- Slowed movement due to ** Parkinson's disease** can be partly assessed through reaction time changes over the course of disease progression.
+- Slowed movement due to **Parkinson's disease** can be partly assessed through reaction time changes over the course of disease progression.
 - **Heavy machinery operator fitness testing** - reaction time benchmarks are used to assess alertness and fitness for safety-critical workplaces.
 
 This project is a simplified hardware analog of that measurement principle:
