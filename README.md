@@ -41,7 +41,7 @@ This project is a simplified hardware analog of that measurement principle:
 1. On round start, all LEDs turn off and any stale button state is cleared
 2. Three distractor LEDs flash in sequence with randomized timing, to prevent the user from anticipating the target purely by rhythm
 3. After a randomized pause, the red target LED turns on and a precision timer starts
-4. A hardware interrupt — not a polling loop — detects the button press the instant it occurs, calculated via `perf_counter()` inside the interrupt callback itself to avoid OS thread-scheduling latency in the measurement
+4. A hardware interrupt (more efficient than a polling loop) detects the button press the instant it occurs, calculated via `perf_counter()` inside the interrupt callback itself to avoid OS thread-scheduling latency in the measurement
 5. If no press occurs within 3 seconds, the round times out
 6. Running statistics (last, best, average, round count) are recalculated and displayed after each round
 
