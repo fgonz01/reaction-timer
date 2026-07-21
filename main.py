@@ -39,10 +39,10 @@ def all_off():
 def show_stats():
 	if not scores:
 		return
-	print(f"\n Last: {scores{-1}:6.1f} ms"
- 	print(f"  Best:    {min(scores):6.1f} ms")
- 	print(f"  Average: {sum(scores)/len(scores):6.1f} ms")
-	 print(f"  Rounds:  {len(scores)}\n")
+	print(f"\n Last: {scores[-1]:6.1f} ms")
+	print(f"  Best:  {min(scores):6.1f} ms")
+	print(f"  Average: {sum(scores)/len(scores):6.1f} ms")
+	print(f"  Rounds:  {len(scores)}\n")
 #----Round Logic----
 def play_round(): #[Creates the play round action, turns lights off, grabs global, clears any presses from last round, game not active yet]
 	global round_active, start_time
@@ -51,11 +51,11 @@ def play_round(): #[Creates the play round action, turns lights off, grabs globa
 	response_flag.clear()
 	round_active = False
 
-for distractor in (led_green, led_yellow, led_blue):
-	distractor.on() #["Turn current light on"]
-	sleep(uniform(0.2, 0.7)) #["Do nothing for a random decimal of seconds"]
-	distractor.off() #["Turn current light off"]
-	sleep(uniform(0.1, 0.4))
+	for distractor in (led_green, led_yellow, led_blue):
+		distractor.on() #["Turn current light on"]
+		sleep(uniform(0.2, 0.7)) #["Do nothing for a random decimal of seconds"]
+		distractor.off() #["Turn current light off"]
+		sleep(uniform(0.1, 0.4))
 
 	sleep(uniform(0.6, 2.2)) #[Suspense]
 
@@ -70,7 +70,7 @@ for distractor in (led_green, led_yellow, led_blue):
 		show_stats()
 	else:
 		led_red.off()
-	print("\n No response within 3 seconds. \n")
+		print("\n No response within 3 seconds. \n")
 
 #----Entry Point----
 def main():
@@ -78,16 +78,16 @@ def main():
 	print(" Cognitive Response Timer")
 	print(" Press button when the RED LED lights up.")
 	print(" Ctrl+C to end session.")
-	print("-" * 40 + \n")
+	print("-" * 40 + "\n")
 
 	try:
 		while True:
 			input(" Press Enter to start a round ")
 			play_round()
-		except KeyboardInterrupt:
-			all_off()
-			print(\m Session complete."
-			show_stats()
+	except KeyboardInterrupt:
+		all_off()
+		print("\n Session complete.")
+		show_stats()
 
-if __name__ = "__main__": #[This if check ensures main() only runs when you execute this file directly with python3 main.py — not if some other program ever imports it. ]
+if __name__ == "__main__": #[This if check ensures main() only runs when you execute this file directly with python3 main.py — not if some other program ever imports it. ]
 	main()
