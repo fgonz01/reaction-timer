@@ -4,6 +4,9 @@ Interrupt-driven GPIO reaction measurement system on a Raspberry Pi
 # Cognitive Response Assessment Prototype #
 An interrupt-driven GPIO reaction time measurement system built on Raspberry Pi 4, using Python and the `gpiozero` library. Measures stimulus-to-response latency with millisecond precision using hardware interrupts rather than polling.
 
+<img width="400" height="400" alt="Reaction-game" src="https://github.com/user-attachments/assets/e5a4e2bd-7987-4ab9-9993-50b15930764b" />
+
+
 ## Medtech Relevance ##
 Stimulus-response latency is a real, validated clinical measurement. Similar uses for reaction-time testing can be seen:
 - **In concussion diagnostics** - protocols like Immediate Post-Concussion Assessment and Cognitive Testing (ImPACT) use reaction time in different methods as markers of neurological impairment after a head injury.
