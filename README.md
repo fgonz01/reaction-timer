@@ -2,7 +2,7 @@
 Interrupt-driven GPIO reaction measurement system on a Raspberry Pi
 
 # Cognitive Response Assessment Prototype #
-An interrupt-driven GPIO reaction time measurement system built on Raspberry Pi 4, using Python and the `gpiozero` library. Measures stimulus-to-response latency with millisecond precision using hardware interrupts rather than polling.
+Measures stimulus-to-response latency using edge-triggered GPIO callbacks (interrupt-driven) rather than a polling loop. Timing resolution has not been characterized.
 
 <img width="400" height="400" alt="Reaction-game" src="https://github.com/user-attachments/assets/e5a4e2bd-7987-4ab9-9993-50b15930764b" />
 
@@ -41,16 +41,16 @@ This project is a simplified hardware analog of that measurement principle:
 
 ## How it works ##
 
-1. On round start, all LEDs turn off and any stale button state is cleared
-2. Three distractor LEDs flash in sequence with randomized timing, to prevent the user from anticipating the target purely by rhythm
-3. After a randomized pause, the red target LED turns on and a precision timer starts
-4. A hardware interrupt (more efficient than a polling loop) detects the button press the instant it occurs, calculated via `perf_counter()` inside the interrupt callback itself to avoid OS thread-scheduling latency in the measurement
-5. If no press occurs within 3 seconds, the round times out
-6. Running statistics (last, best, average, round count) are recalculated and displayed after each round
+1. On round start, all LEDs turn off and any stale button state is cleared.
+2. Three distractor LEDs flash in sequence with randomized timing, to prevent the user from anticipating the target purely by rhythm.
+3. After a randomized pause, the red target LED turns on and a precision timer starts.
+4. The GPIO library detects the button press as a falling edge and runs a callback on a background thread, so the program never polls the pin. The callback reads perf_counter() right away. That keeps the delay of waking the main loop out of the measurement, but OS scheduling latency is still included.
+5. If no press occurs within 3 seconds, the round times out.
+6. Running statistics (last, best, average, round count) are recalculated and displayed after each round.
 
 ## Engineering takeaways from this project ##
 - **Interrupt-driven I/O**: `button.when_pressed` registers a callback that fires on a hardware-detected edge, rather than the CPU repeatedly checking pin state in a loop.
-- **Hardware debouncing**: `bounce_time=0.05` filters out the mechanical bounce inherent to physical switch contacts, preventing a single press from being read as several.
+- **Software debouncing**: `bounce_time=0.05` tells the GPIO library to ignore a press until the pin has been stable for 50 ms. This filters out the mechanical bounce of the switch contacts, so one press isn't read as several.
 - **Precision timing**: `time.perf_counter()` is used instead of `time.time()`, since it's a monotonic clock intended for measuring short, high-precision intervals.
 
 ## How to run
